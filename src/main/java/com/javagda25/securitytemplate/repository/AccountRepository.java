@@ -1,6 +1,6 @@
 package com.javagda25.securitytemplate.repository;
 
-import com.javagda25.securitytemplate.model.Account;
+import com.javagda25.securitytemplate.model.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

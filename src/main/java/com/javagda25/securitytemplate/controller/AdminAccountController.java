@@ -1,6 +1,6 @@
 package com.javagda25.securitytemplate.controller;
 
-import com.javagda25.securitytemplate.model.Account;
+import com.javagda25.securitytemplate.model.account.Account;
 import com.javagda25.securitytemplate.model.dto.AccountPasswordResetRequest;
 import com.javagda25.securitytemplate.service.AccountRoleService;
 import com.javagda25.securitytemplate.service.AccountService;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Task list</title>
+    <th:block th:replace="fragments :: link-styles" th:remove="tag"/>
+</head>
+<body>
+<th:block th:replace="fragments :: navigator" th:remove="tag"/>
+<div class="container">
+    <h1>Task list</h1>
+    <div class="row col-md-12">
+        <div class="row col-md-12 list-header-row">
+            <div class="col-1">Id</div>
+            <div class="col-2">Name</div>
+            <div class="col-1">Date added</div>
+            <div class="col-2">Content</div>
+            <div class="col-1">Status</div>
+            <div class="col-1">Date finished</div>
+            <div class="col-4"><!--Buttons--></div>
+        </div>
+        <div th:each="task : ${tasks}" class="row col-md-12 list-data-row">
+            <div class="col-1" th:text="${task.getId()}"></div>
+            <div class="col-2" th:text="${task.getName()}"></div>
+            <div class="col-1" th:text="${#temporals.format(task.getDateOfAddition(),'yyyy-MM-dd')}"></div>
+            <div class="col-2" th:text="${task.getContent()}"></div>
+            <div class="col-1" th:text="${task.getTaskStatus().toString()}"></div>
+            <div class="col-1" th:text="${#temporals.format(task.getDateOfFinish(),'yyyy-MM-dd')}"></div>
+            <div class="row col-4">
+                <div class="col-4" th:if="${!task.isArchived()}">
+                    <a th:href="@{'/task/todo/' + ${task.getId()}}">
+                        <button th:disabled="${task.isTodo()}" type="button" class="btn btn-primary">Set
+                            Todo
+                        </button>
+                    </a>
+                </div>
+                <div class="col-4" th:if="${!task.isArchived()}">
+                    <a th:href="@{'/task/done/' + ${task.getId()}}">
+                        <button th:disabled="${task.isDone()}" type="button" class="btn btn-info">Set Done</button>
+                    </a>
+                </div>
+                <div class="col-4" th:if="${task.isDone()}">
+                    <a th:href="@{'/task/archive/' + ${task.getId()}}">
+                        <button th:disabled="${task.isArchived()}" type="button" class="btn btn-danger">
+                            Archive
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <th:block th:replace="fragments :: footer" th:remove="tag"/>
+    <th:block th:replace="fragments :: scripts" th:remove="tag"/>
+</body>
+</html>

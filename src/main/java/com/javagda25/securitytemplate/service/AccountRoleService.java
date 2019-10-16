@@ -1,6 +1,6 @@
 package com.javagda25.securitytemplate.service;
 
-import com.javagda25.securitytemplate.model.AccountRole;
+import com.javagda25.securitytemplate.model.account.AccountRole;
 import com.javagda25.securitytemplate.repository.AccountRoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

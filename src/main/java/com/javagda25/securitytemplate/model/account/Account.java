@@ -1,8 +1,7 @@
-package com.javagda25.securitytemplate.model;
+package com.javagda25.securitytemplate.model.account;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.javagda25.securitytemplate.model.Task.Task;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -34,6 +33,12 @@ public class Account {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @Cascade(value = org.hibernate.annotations.CascadeType.DETACH)
     private Set<AccountRole> accountRoles;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Set<Task> tasks;
+
 
     public boolean isAdmin() {
         return accountRoles.stream().anyMatch(ar -> ar.getName().equals("ADMIN"));

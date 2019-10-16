@@ -1,7 +1,7 @@
 package com.javagda25.securitytemplate.service;
 
-import com.javagda25.securitytemplate.model.Account;
-import com.javagda25.securitytemplate.model.AccountRole;
+import com.javagda25.securitytemplate.model.account.Account;
+import com.javagda25.securitytemplate.model.account.AccountRole;
 import com.javagda25.securitytemplate.model.dto.AccountPasswordResetRequest;
 import com.javagda25.securitytemplate.repository.AccountRepository;
 import com.javagda25.securitytemplate.repository.AccountRoleRepository;
@@ -105,5 +105,9 @@ public class AccountService {
 
             accountRepository.save(account);
         }
+    }
+
+    public Optional<Account> getByName(String name) {
+        return accountRepository.findByUsername(name);
     }
 }

@@ -1,7 +1,7 @@
 package com.javagda25.securitytemplate.component;
 
-import com.javagda25.securitytemplate.model.Account;
-import com.javagda25.securitytemplate.model.AccountRole;
+import com.javagda25.securitytemplate.model.account.Account;
+import com.javagda25.securitytemplate.model.account.AccountRole;
 import com.javagda25.securitytemplate.repository.AccountRepository;
 import com.javagda25.securitytemplate.repository.AccountRoleRepository;
 import lombok.AllArgsConstructor;
