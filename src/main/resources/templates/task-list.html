@@ -12,37 +12,44 @@
     <div class="row col-md-12">
         <div class="row col-md-12 list-header-row">
             <div class="col-1">Id</div>
-            <div class="col-2">Name</div>
+            <div class="col-1">Name</div>
             <div class="col-1">Date added</div>
-            <div class="col-2">Content</div>
+            <div class="col-3">Content</div>
             <div class="col-1">Status</div>
             <div class="col-1">Date finished</div>
             <div class="col-4"><!--Buttons--></div>
         </div>
         <div th:each="task : ${tasks}" class="row col-md-12 list-data-row">
             <div class="col-1" th:text="${task.getId()}"></div>
-            <div class="col-2" th:text="${task.getName()}"></div>
+            <div class="col-1" th:text="${task.getName()}"></div>
             <div class="col-1" th:text="${#temporals.format(task.getDateOfAddition(),'yyyy-MM-dd')}"></div>
-            <div class="col-2" th:text="${task.getContent()}"></div>
+            <div class="col-3" th:text="${task.getContent()}"></div>
             <div class="col-1" th:text="${task.getTaskStatus().toString()}"></div>
             <div class="col-1" th:text="${#temporals.format(task.getDateOfFinish(),'yyyy-MM-dd')}"></div>
             <div class="row col-4">
-                <div class="col-4" th:if="${!task.isArchived()}">
+                <div class="col-6" sec:authorize="!hasRole('ADMIN')" th:if="${!task.isArchived() && task.isDone()}">
                     <a th:href="@{'/task/todo/' + ${task.getId()}}">
-                        <button th:disabled="${task.isTodo()}" type="button" class="btn btn-primary">Set
+                        <button type="button" class="btn btn-primary">Set
                             Todo
                         </button>
                     </a>
                 </div>
-                <div class="col-4" th:if="${!task.isArchived()}">
+                <div class="col-6" sec:authorize="!hasRole('ADMIN')" th:if="${!task.isArchived() && task.isTodo()}">
                     <a th:href="@{'/task/done/' + ${task.getId()}}">
-                        <button th:disabled="${task.isDone()}" type="button" class="btn btn-info">Set Done</button>
+                        <button type="button" class="btn btn-info">Set Done</button>
                     </a>
                 </div>
-                <div class="col-4" th:if="${task.isDone()}">
+                <div class="col-6" sec:authorize="!hasRole('ADMIN')" th:if="${task.isDone()}">
                     <a th:href="@{'/task/archive/' + ${task.getId()}}">
-                        <button th:disabled="${task.isArchived()}" type="button" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger">
                             Archive
+                        </button>
+                    </a>
+                </div>
+                <div class="col-6" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{'/task/remove/' + ${task.getId()}}">
+                        <button type="button" class="btn btn-danger">
+                            Remove
                         </button>
                     </a>
                 </div>

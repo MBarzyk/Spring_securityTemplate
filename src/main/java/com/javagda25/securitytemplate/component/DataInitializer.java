@@ -24,6 +24,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         addDefaultRole("USER");
         addDefaultRole("ADMIN");
+        addDefaultRole("ACCOUNT_MANAGER");
+        addDefaultRole("ACCOUNT_REMOVER");
         addDefaultAccount("admin", "admin", "ADMIN", "USER");
         addDefaultAccount("user", "user", "USER");
     }

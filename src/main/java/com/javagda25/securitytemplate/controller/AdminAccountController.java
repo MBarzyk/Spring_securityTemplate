@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/admin/account/")
-@PreAuthorize(value = "hasRole('ADMIN')")
 @AllArgsConstructor
 public class AdminAccountController {
 
@@ -23,6 +22,7 @@ public class AdminAccountController {
     private AccountRoleService accountRoleService;
 
     @GetMapping("/list")
+    @PreAuthorize(value = "hasAnyRole('ADMIN', 'ACCOUNT_MANAGER')")
     public String getUserList(Model model) {
         model.addAttribute("accounts", accountService.getAll());
 
@@ -30,6 +30,7 @@ public class AdminAccountController {
     }
 
     @GetMapping("/delete/{id}")
+    @PreAuthorize(value = "hasAnyRole('ADMIN', 'ACCOUNT_REMOVER')")
     public String delete(@PathVariable(name = "id") Long id) {
         accountService.deleteById(id);
 
@@ -37,6 +38,7 @@ public class AdminAccountController {
     }
 
     @GetMapping("lock/{id}")
+    @PreAuthorize(value = "hasAnyRole('ADMIN', 'ACCOUNT_MANAGER')")
     public String lock(@PathVariable(name = "id") Long id) {
         Optional<Account> optionalAccount = accountService.getById(id);
         if (optionalAccount.isPresent()) {
@@ -52,6 +54,7 @@ public class AdminAccountController {
     }
 
     @GetMapping("unlock/{id}")
+    @PreAuthorize(value = "hasAnyRole('ADMIN', 'ACCOUNT_MANAGER')")
     public String unlock(@PathVariable(name = "id") Long id) {
         Optional<Account> optionalAccount = accountService.getById(id);
         if (optionalAccount.isPresent()) {
@@ -67,6 +70,7 @@ public class AdminAccountController {
     }
 
     @GetMapping("/resetPassword/{id}")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String resetPassword(Model model,
             @PathVariable(name = "id") Long accountId) {
         Optional<Account> optionalAccount = accountService.getById(accountId);
@@ -81,6 +85,7 @@ public class AdminAccountController {
     }
 
     @PostMapping("/resetPassword")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String resetPassword (AccountPasswordResetRequest request) {
         accountService.resetPassword(request);
 
@@ -88,6 +93,7 @@ public class AdminAccountController {
     }
 
     @GetMapping("/editRoles")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     public String editRoles(Model model, @RequestParam(name = "accountId") Long accountId) {
         Optional<Account> accountOptional = accountService.getById(accountId);
         if (accountOptional.isPresent()) {

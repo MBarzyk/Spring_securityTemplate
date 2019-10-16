@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose user</title>
+    <th:block th:replace="fragments :: link-styles" th:remove="tag"/>
+</head>
+<body>
+<th:block th:replace="fragments :: navigator" th:remove="tag"/>
+<div class="container">
+    <h1>Choose user</h1>
+    <form th:action="@{/admin/task/list}" method="post">
+        <div class="row col-12 form-container">
+            <div th:if="${errorMessage != null}" class="row col-md-12 form-input-row">
+                <div class="col-md-12 alert alert-danger" th:text="${errorMessage}"></div>
+            </div>
+            <div class="row col-md-12 form-input-row">
+                <div class="col-md-6">
+                    <label for="chosenUsername">User:</label>
+                </div>
+                <div class="col-md-6">
+                    <select th:name="chosenUsername" id="chosenUsername">
+                        <option th:each="user : ${userlist}" th:text="${user.getUsername()}" th:value="${user.getUsername()}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row col-md-12 form-button-row">
+                <div class="col-md-6">
+                    <button type="reset" class="btn btn-warning offset-3 col-md-6">Reset</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary offset-3 col-md-6">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:replace="fragments :: footer" th:remove="tag"/>
+<th:block th:replace="fragments :: scripts" th:remove="tag"/>
+</body>
+</html>

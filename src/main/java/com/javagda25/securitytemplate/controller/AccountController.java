@@ -1,6 +1,5 @@
 package com.javagda25.securitytemplate.controller;
 
-import com.javagda25.securitytemplate.model.Task.Task;
 import com.javagda25.securitytemplate.model.account.Account;
 import com.javagda25.securitytemplate.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @RequestMapping(path = "/user/")
